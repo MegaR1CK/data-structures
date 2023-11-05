@@ -1,5 +1,8 @@
 package datastructures.arrays.simplearray;
 
+/**
+ * Стандартный массив, элементы идут друг за другом.
+ */
 public class SimpleArray {
 
     private final int[] arr;
@@ -9,11 +12,21 @@ public class SimpleArray {
         arr = new int[size];
     }
 
+    /**
+     * Вставка нового элемента в конец массива. Время выполнения - O(1)
+     * @param value Значение нового элемента
+     */
     public void insert(int value) {
         arr[size] = value;
         size++;
     }
 
+    /**
+     * Поиск элемента в массиве. Проход по массиву в поиске элемента с заданным значением.
+     * Время выполнения - O(n)
+     * @param value Значение искомого элемента
+     * @return Индекс искомого элемента, -1, если элемент не найден
+     */
     public int find(int value) {
         for (int i = 0; i < size; i++) {
             if (arr[i] == value) return i;
@@ -21,6 +34,13 @@ public class SimpleArray {
         return -1;
     }
 
+    /**
+     * Удаление элемента из массива. Проход по массиву в поиске элемента с заданным значением,
+     * затем сдвиг всех последующих элементов на ячейку назад. Удаляемое значение перезаписывается.
+     * Время выполнения - O(n)
+     * @param value Значение удаляемого элемента
+     * @return true, если удалось удалить элемент, false - если нет
+     */
     public boolean delete(int value) {
         int i;
         for (i = 0; i < size; i++) {
@@ -34,6 +54,9 @@ public class SimpleArray {
         return true;
     }
 
+    /**
+     * Отображение всех элементов массива в консоли. Время выполнения - O(n).
+     */
     public void display() {
         for (int i = 0; i < size; i++) {
             System.out.print(arr[i] + " ");
