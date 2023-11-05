@@ -88,6 +88,20 @@ public class SimpleArray implements Array {
     }
 
     /**
+     * Удаление дубликатов внутри массива. Считаем вхождения элемента
+     * в массив, если вхождений больше одного, удаляем элемент.
+     */
+    @Override
+    public void removeDuplicates() {
+        for (int i = 0; i < size; i++) {
+            int entries = 0;
+            for (int j = 0; j < size; j++) {
+                if (arr[i] == arr[j] && entries++ > 0) delete(arr[j]);
+            }
+        }
+    }
+
+    /**
      * Получение максимального элемента массива
      * @return максимальный элемент массива, -1, если массив пуст
      */

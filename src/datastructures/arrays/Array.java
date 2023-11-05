@@ -17,4 +17,7 @@ public interface Array {
     /** Получение размера массива */
     int getSize();
 
+    /** Удаление дубликатов внутри массива */
+    void removeDuplicates();
+
 }

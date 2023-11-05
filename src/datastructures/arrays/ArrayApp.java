@@ -29,9 +29,10 @@ public class ArrayApp {
                 "4 - удалить элемент массива\n" +
                 "5 - отсортировать обычный массив\n" +
                 "6 - объединить упорядоченные массивы\n" +
-                "7 - завершить работу\n",
+                "7 - удалить дупликаты в массиве\n" +
+                "8 - завершить работу\n",
                 1,
-                7
+                8
             );
             switch (userInput) {
                 case 1:
@@ -52,8 +53,11 @@ public class ArrayApp {
                 case 6:
                     mergeScenario();
                     break;
+                case 7:
+                    removeDuplicatesScenario();
+                    break;
             }
-        } while (userInput != 7);
+        } while (userInput != 8);
         println("Завершение работы...");
         System.exit(0);
     }
@@ -118,6 +122,11 @@ public class ArrayApp {
         } else {
             println("Массив не упорядоченный!");
         }
+    }
+
+    private static void removeDuplicatesScenario() {
+        array.removeDuplicates();
+        println("Дубликаты удалены");
     }
 
     private static void displayArray(Array array) {

@@ -107,6 +107,20 @@ public class OrderedArray implements Array {
     }
 
     /**
+     * Удаление дубликатов внутри массива. Так как массив упорядоченный,
+     * то если текущий и предыдущий элементы равны, текущий удаляем.
+     */
+    @Override
+    public void removeDuplicates() {
+        for (int i = 1; i < size; i++) {
+            while (arr[i] == arr[i - 1]) {
+                delete(arr[i]);
+                if (size == i) break;
+            }
+        }
+    }
+
+    /**
      * Объединение текущего массива с другим упорядоченным массивом
      * @param secondArray второй упорядоченный массив
      * @return объединенный массив
@@ -115,6 +129,9 @@ public class OrderedArray implements Array {
         boolean firstArrayCompleted = false, secondArrayCompleted = false;
         int mergedArrayMaxSize = size + secondArray.getSize();
         OrderedArray mergedArray = new OrderedArray(mergedArrayMaxSize);
+        // Цикл сливания массивов. Сравниваем два элемента из разных массивов, добавляем в объединенный
+        // массив меньший из них. Индекс массива, из которого добавлен элемент, увеличиваем. Если индекс вышел
+        // за рамки массива, значит массив закончился, добавляем элементы только из другого.
         for (int firstIndex = 0, secondIndex = 0; firstIndex + secondIndex < mergedArrayMaxSize;) {
             if (firstIndex == size) firstArrayCompleted = true;
             if (secondIndex == secondArray.getSize()) secondArrayCompleted = true;
