@@ -1,15 +1,18 @@
 package datastructures.arrays;
 
 import java.util.Random;
+
+import static datastructures.Utils.println;
 import static datastructures.Utils.readInt;
 
 public class ArrayApp {
+
+    static Array array;
 
     public static void main(String[] args) {
 
         int arraySize = readInt("Введите размер массива:", 0, 100);
         int arrayType = readInt("Выберите тип массива (1 - обычный, 2 - упорядоченный)", 1, 2);
-        Array array;
         if (arrayType == 1) {
             array = new SimpleArray(arraySize);
         } else {
@@ -24,63 +27,96 @@ public class ArrayApp {
                 "2 - добавить новый элемент в массив\n" +
                 "3 - найти индекс элемента массива\n" +
                 "4 - удалить элемент массива\n" +
-                "5 - завершить работу\n",
+                "5 - отсортировать обычный массив\n" +
+                "6 - объединить упорядоченные массивы\n" +
+                "7 - завершить работу\n",
                 1,
-                5
+                7
             );
             switch (userInput) {
                 case 1:
                     displayArray(array);
                     break;
                 case 2:
-                    insertScenario(array);
+                    insertScenario();
                     break;
                 case 3:
-                    searchScenario(array);
+                    searchScenario();
                     break;
                 case 4:
-                    deleteScenario(array);
+                    deleteScenario();
+                    break;
+                case 5:
+                    sortScenario();
+                    break;
+                case 6:
+                    mergeScenario();
                     break;
             }
-        } while (userInput != 5);
-        System.out.println("Завершение работы...");
+        } while (userInput != 7);
+        println("Завершение работы...");
         System.exit(0);
     }
 
-    private static void fillArray(Array array, int arraySize) {
+    private static void fillArray(Array array, int size) {
         Random random = new Random();
-        for (int i = 0; i < arraySize; i++) {
+        for (int i = 0; i < size; i++) {
             array.insert(random.nextInt(100));
         }
-        System.out.println("Массив заполнен случайными числами");
+        println("Массив заполнен случайными числами");
     }
 
-    private static void insertScenario(Array array) {
+    private static void insertScenario() {
         int value = readInt("Введите элемент для добавления: ", 0, 100);
         try {
             array.insert(value);
-            System.out.println("Элемент добавлен в массив");
+            println("Элемент добавлен в массив");
         } catch (ArrayIndexOutOfBoundsException exception) {
-            System.out.println("Не удалось добавить элемент: массив заполнен.");
+            println("Не удалось добавить элемент: массив заполнен.");
         }
     }
 
-    private static void searchScenario(Array array) {
+    private static void searchScenario() {
         int element = readInt("Введите элемент для поиска: ", 0, 100);
         int index = array.find(element);
         if (index != -1) {
-            System.out.println("Искомый элемент расположен по индексу " + index);
+            println("Искомый элемент расположен по индексу " + index);
         } else {
-            System.out.println("Искомый элемент не найден");
+            println("Искомый элемент не найден");
         }
     }
 
-    private static void deleteScenario(Array array) {
+    private static void deleteScenario() {
         int element = readInt("Введите элемент для удаления: ", 0, 100);
         if (array.delete(element)) {
-            System.out.println("Элемент удален");
+            println("Элемент удален");
         } else {
-            System.out.println("Элемент не найден");
+            println("Элемент не найден");
+        }
+    }
+
+    private static void sortScenario() {
+        if (array instanceof SimpleArray) {
+            array = sortArray((SimpleArray) array);
+        }
+        println("Массив отсортирован");
+    }
+
+    private static void mergeScenario() {
+        if (array instanceof OrderedArray) {
+            int secondArraySize = readInt("Введите размер второго массива:", 0, 100);
+            OrderedArray firstArray = (OrderedArray) array;
+            OrderedArray secondArray = new OrderedArray(secondArraySize);
+            fillArray(secondArray, secondArraySize);
+            OrderedArray mergedArray = firstArray.merge(secondArray);
+            println("Первый массив:");
+            displayArray(firstArray);
+            println("Второй массив:");
+            displayArray(secondArray);
+            println("Объединенный массив:");
+            displayArray(mergedArray);
+        } else {
+            println("Массив не упорядоченный!");
         }
     }
 
@@ -88,6 +124,14 @@ public class ArrayApp {
         for (int i = 0; i < array.getSize(); i++) {
             System.out.print(array.get(i) + " ");
         }
-        System.out.println();
+        println();
+    }
+
+    private static SimpleArray sortArray(SimpleArray array) {
+        SimpleArray sortedArray = new SimpleArray(array.getSize());
+        for (int i = array.getSize() - 1; i >= 0; i--) {
+            sortedArray.set(array.removeMax(), i);
+        }
+        return sortedArray;
     }
 }

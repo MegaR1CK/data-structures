@@ -105,4 +105,27 @@ public class OrderedArray implements Array {
         size--;
         return true;
     }
+
+    /**
+     * Объединение текущего массива с другим упорядоченным массивом
+     * @param secondArray второй упорядоченный массив
+     * @return объединенный массив
+     */
+    public OrderedArray merge(OrderedArray secondArray) {
+        boolean firstArrayCompleted = false, secondArrayCompleted = false;
+        int mergedArrayMaxSize = size + secondArray.getSize();
+        OrderedArray mergedArray = new OrderedArray(mergedArrayMaxSize);
+        for (int firstIndex = 0, secondIndex = 0; firstIndex + secondIndex < mergedArrayMaxSize;) {
+            if (firstIndex == size) firstArrayCompleted = true;
+            if (secondIndex == secondArray.getSize()) secondArrayCompleted = true;
+            if (secondArrayCompleted || !firstArrayCompleted && get(firstIndex) < secondArray.get(secondIndex)) {
+                mergedArray.insert(get(firstIndex));
+                firstIndex++;
+            } else {
+                mergedArray.insert(secondArray.get(secondIndex));
+                secondIndex++;
+            }
+        }
+        return mergedArray;
+    }
 }

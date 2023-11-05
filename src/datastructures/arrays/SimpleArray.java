@@ -23,6 +23,17 @@ public class SimpleArray implements Array {
     }
 
     /**
+     * Вставка элемента по индексу
+     * @param value новый элемент
+     * @param index индекс
+     */
+    public void set(int value, int index) {
+        // Предполагается, что нулевыми могут быть только пустые элементы массива
+        if (arr[index] == 0) size++;
+        arr[index] = value;
+    }
+
+    /**
      * Получение размера массива
      * @return размер массива
      */
@@ -74,5 +85,28 @@ public class SimpleArray implements Array {
         }
         size--;
         return true;
+    }
+
+    /**
+     * Получение максимального элемента массива
+     * @return максимальный элемент массива, -1, если массив пуст
+     */
+    public int getMax() {
+        if (size == 0) return -1;
+        int maxValue = arr[0];
+        for (int i = 1; i < size; i++) {
+            if (arr[i] > maxValue) maxValue = arr[i];
+        }
+        return maxValue;
+    }
+
+    /**
+     * Удаление максимального элемента массива
+     * @return удаленный максимальный элемент массива, -1, если массив пуст
+     */
+    public int removeMax() {
+        int maxValue = getMax();
+        delete(maxValue);
+        return maxValue;
     }
 }
