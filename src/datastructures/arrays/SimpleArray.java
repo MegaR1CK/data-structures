@@ -14,7 +14,7 @@ public class SimpleArray implements Array {
 
     /**
      * Получение элемента из массива
-     * @param index индекс элементп
+     * @param index индекс элемента
      * @return элемент
      */
     @Override

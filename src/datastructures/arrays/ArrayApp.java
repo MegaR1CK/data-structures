@@ -59,7 +59,6 @@ public class ArrayApp {
             }
         } while (userInput != 8);
         println("Завершение работы...");
-        System.exit(0);
     }
 
     private static void fillArray(Array array, int size) {
