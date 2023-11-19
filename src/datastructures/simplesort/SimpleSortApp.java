@@ -12,10 +12,15 @@ public class SimpleSortApp {
             userInput = readInt("1 - Сортировка пузырьком\n" +
                 "2 - Сортировка выбором\n" +
                 "3 - Сортировка вставкой\n" +
-                "4 - Пересоздание массива\n" +
-                "5 - Завершение работы",
+                "4 - Сортировка пузырьком (двухпроходная)\n" +
+                "5 - Сортировка методом четно-нечетных перестановок\n" +
+                "6 - Сортировка вставкой (без дубликатов)\n" +
+                "7 - Вывод медианы\n" +
+                "8 - Удаление дубликатов\n" +
+                "9 - Пересоздание массива\n" +
+                "10 - Завершение работы",
                 1,
-                5
+                10
             );
             long time = System.currentTimeMillis();
             switch (userInput) {
@@ -30,16 +35,45 @@ public class SimpleSortApp {
                     displayArray(array);
                     break;
                 case 3:
-                    array.insertionSort();
-                    println("Массив отсортирован вставкой:");
+                    SortArray.InsertionSortResult sortResult = array.insertionSort();
+                    System.out.printf(
+                        "Массив отсортирован вставкой. Сравнений: %d, копирований: %d",
+                        sortResult.getComparisons(),
+                        sortResult.getCopies()
+                    );
+                    println();
                     displayArray(array);
                     break;
                 case 4:
+                    array.twoSidedBubbleSort();
+                    println("Массив отсортирован двухпроходной сортировкой пузырьком:");
+                    displayArray(array);
+                    break;
+                case 5:
+                    println("Массив отсортирован методом четно-нечетных перестановок. Количество итераций: " +
+                        array.oddEvenSort()
+                    );
+                    displayArray(array);
+                    break;
+                case 6:
+                    array.insertionSortNoDups();
+                    println("Массив отсортирован вставкой, дубликаты удалены:");
+                    displayArray(array);
+                    break;
+                case 7:
+                    println("Медиана: " + array.median());
+                    break;
+                case 8:
+                    array.removeDuplicates();
+                    println("Дубликаты удалены:");
+                    displayArray(array);
+                    break;
+                case 9:
                     array = createArray();
                     break;
             }
             println("Время операции - " + (System.currentTimeMillis() - time) + " мс");
-        } while (userInput != 5);
+        } while (userInput != 10);
         println("Завершение работы...");
     }
 
