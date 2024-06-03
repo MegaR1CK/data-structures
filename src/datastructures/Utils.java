@@ -17,7 +17,7 @@ public class Utils {
         int intInput = 0;
         boolean isInputSuccessful;
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        println(message);
+        if (!message.isEmpty()) println(message);
         do {
             isInputSuccessful = true;
             try {
@@ -30,5 +30,30 @@ public class Utils {
             if (!isInputSuccessful) println("Некорректный ввод!");
         } while (!isInputSuccessful);
         return intInput;
+    }
+
+    public static int readInt(String message) {
+        return readInt(message, 0, 100);
+    }
+
+    public static int readInt(int minValue, int maxValue) {
+        return readInt("", minValue, maxValue);
+    }
+
+    public static String readString(String message) {
+        String input = "";
+        boolean isInputSuccessful;
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        println(message);
+        do {
+            isInputSuccessful = true;
+            try {
+                input = reader.readLine();
+            } catch (Exception exception) {
+                isInputSuccessful = false;
+                println("Некорректный ввод!");
+            }
+        } while (!isInputSuccessful);
+        return input;
     }
 }

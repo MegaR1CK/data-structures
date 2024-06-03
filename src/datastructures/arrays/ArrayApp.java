@@ -11,7 +11,7 @@ public class ArrayApp {
 
     public static void main(String[] args) {
 
-        int arraySize = readInt("Введите размер массива:", 0, 100);
+        int arraySize = readInt("Введите размер массива:");
         int arrayType = readInt("Выберите тип массива (1 - обычный, 2 - упорядоченный)", 1, 2);
         if (arrayType == 1) {
             array = new SimpleArray(arraySize);
@@ -70,7 +70,7 @@ public class ArrayApp {
     }
 
     private static void insertScenario() {
-        int value = readInt("Введите элемент для добавления: ", 0, 100);
+        int value = readInt("Введите элемент для добавления: ");
         try {
             array.insert(value);
             println("Элемент добавлен в массив");
@@ -80,7 +80,7 @@ public class ArrayApp {
     }
 
     private static void searchScenario() {
-        int element = readInt("Введите элемент для поиска: ", 0, 100);
+        int element = readInt("Введите элемент для поиска: ");
         int index = array.find(element);
         if (index != -1) {
             println("Искомый элемент расположен по индексу " + index);
@@ -90,7 +90,7 @@ public class ArrayApp {
     }
 
     private static void deleteScenario() {
-        int element = readInt("Введите элемент для удаления: ", 0, 100);
+        int element = readInt("Введите элемент для удаления: ");
         if (array.delete(element)) {
             println("Элемент удален");
         } else {
@@ -107,7 +107,7 @@ public class ArrayApp {
 
     private static void mergeScenario() {
         if (array instanceof OrderedArray) {
-            int secondArraySize = readInt("Введите размер второго массива:", 0, 100);
+            int secondArraySize = readInt("Введите размер второго массива:");
             OrderedArray firstArray = (OrderedArray) array;
             OrderedArray secondArray = new OrderedArray(secondArraySize);
             fillArray(secondArray, secondArraySize);
